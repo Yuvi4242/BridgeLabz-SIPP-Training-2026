@@ -1,4 +1,4 @@
-package leetcode_codebase;
+//package leetcode_codebase;
 import java.util.Scanner;
 
 public class PalindromeNumber {
