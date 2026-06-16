@@ -14,7 +14,7 @@ This repository contains Java practice projects organized by topic and difficult
     - `ProgrammingElements`
       - `L1_Practice_Problem`
       - `L2_Practice_Problem`
-    - `leetcode-codebase`
+    - `leetcode-codebase`.
 
 ## Contents
 
