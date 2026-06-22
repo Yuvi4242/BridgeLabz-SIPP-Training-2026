@@ -1,74 +1,61 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * File: EmployeeSkillAssignment.java
- *
- * Problem Statement:
- * Given an array of employee skill scores and a target value, recursively print all possible
- * team combinations whose total skill score equals the target.
- *
- * Approach:
- * Use recursion and backtracking to explore each combination by including or excluding each skill score.
- * When the current sum equals the target, print the current combination.
- *
- * Time Complexity: O(2^n) in the worst case, where n is the number of employees.
- * Space Complexity: O(n) due to recursion call stack and temporary combination storage.
- *
- * Sample Input:
- * 4
- * 2 3 5 7
- * 10
- *
- * Sample Output:
- * [3, 7]
- * [2, 3, 5]
- */
 public class EmployeeSkillAssignment {
+    static class Employee implements Serializable {
+        private static final long serialVersionUID = 1L;
+        int id; String name; String department; double salary; int[] skills;
+        public Employee(int id,String name,String dept,double sal,int[] skills){this.id=id;this.name=name;this.department=dept;this.salary=sal;this.skills=skills;}
+        public String toString(){return "Employee[id="+id+",name="+name+",dept="+department+",salary="+salary+",skills="+Arrays.toString(skills)+"]";}
+    }
 
-    /**
-     * Recursive helper to find combinations of skill scores that sum to the target.
-     */
-    public static void findCombinations(int[] skills, int target, int index, List<Integer> currentCombination, int currentSum) {
-        // If the current sum matches the target, print the current combination.
-        if (currentSum == target) {
-            System.out.println(currentCombination);
-            return;
-        }
-
-        // If index is out of range or current sum exceeds target, stop exploring this path.
-        if (index >= skills.length || currentSum > target) {
-            return;
-        }
-
-        // Include the current skill score.
-        currentCombination.add(skills[index]);
-        findCombinations(skills, target, index + 1, currentCombination, currentSum + skills[index]);
-
-        // Backtrack by removing the last included skill score.
-        currentCombination.remove(currentCombination.size() - 1);
-
-        // Exclude the current skill score and move to the next.
-        findCombinations(skills, target, index + 1, currentCombination, currentSum);
+    // find subsets of skill scores that sum to target
+    static void findTeams(int[] arr,int target){
+        List<Integer> cur=new ArrayList<>();
+        backtrack(arr,0,target,cur);
+    }
+    static void backtrack(int[] arr,int idx,int rem,List<Integer> cur){
+        if(rem==0){ System.out.println("Team indices: " + cur); return; }
+        if(rem<0||idx==arr.length) return;
+        // include
+        cur.add(idx);
+        backtrack(arr,idx+1,rem-arr[idx],cur);
+        cur.remove(cur.size()-1);
+        // exclude
+        backtrack(arr,idx+1,rem,cur);
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the number of employees:");
-        int n = scanner.nextInt();
+        Scanner sc=new Scanner(System.in);
+        try{
+            System.out.print("Enter skill scores (comma separated): ");
+            String[] parts=sc.nextLine().split("[,\\s]+");
+            int[] arr=new int[parts.length];
+            for(int i=0;i<parts.length;i++) arr[i]=Integer.parseInt(parts[i]);
+            System.out.print("Enter target sum: ");
+            int target=Integer.parseInt(sc.nextLine().trim());
+            System.out.println("Possible teams:");
+            findTeams(arr,target);
 
-        int[] skills = new int[n];
-        System.out.println("Enter the skill scores separated by spaces:");
-        for (int i = 0; i < n; i++) {
-            skills[i] = scanner.nextInt();
-        }
-
-        System.out.println("Enter the target skill sum:");
-        int target = scanner.nextInt();
-
-        System.out.println("Possible team combinations with total skill " + target + ":");
-        findCombinations(skills, target, 0, new ArrayList<>(), 0);
-        scanner.close();
+            // read an employee and serialize
+            System.out.print("Enter employee id: "); int id=Integer.parseInt(sc.nextLine().trim());
+            System.out.print("Enter name: "); String name=sc.nextLine();
+            System.out.print("Enter department: "); String dept=sc.nextLine();
+            System.out.print("Enter salary: "); double sal=Double.parseDouble(sc.nextLine().trim());
+            System.out.print("Enter skill scores for this employee (comma separated): ");
+            String[] s2=sc.nextLine().split("[,\\s]+"); int[] skills=new int[s2.length]; for(int i=0;i<s2.length;i++) skills[i]=Integer.parseInt(s2[i]);
+            Employee e=new Employee(id,name,dept,sal,skills);
+            try(ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("employee.ser"))){ oos.writeObject(e); }
+            try(ObjectInputStream ois=new ObjectInputStream(new FileInputStream("employee.ser"))){ Employee r=(Employee)ois.readObject(); System.out.println("Recovered: "+r); }
+        }catch(Exception ex){ System.out.println("Error: " + ex.getMessage()); }
+        finally{ sc.close(); }
     }
 }
+
