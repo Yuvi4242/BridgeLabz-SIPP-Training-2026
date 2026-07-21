@@ -69,6 +69,7 @@ graph TD
 - **BinarySearch** - Binary search implementations with peak elements, matrix search, rotation point finder
 - **BST** - Binary Search Tree practice covering search, insert, delete, validation, kth smallest, and LCA
 - **Heap** - Heap practice covering heapify, heap sort, top-k, kth largest, and merge-k-sorted-lists
+- **Graph** - Graph practice covering representation, BFS/DFS traversal, shortest path, connectivity, and cycle detection
 - **LinkedList** - Linked list operations and node management
 - **HashMap** - Hash map practice problems
 - **Stacko** - Stack operations: balanced brackets, call stack, stock span, next greater element
@@ -134,6 +135,13 @@ javac BinarySearchScenario.java
 java BinarySearchScenario
 ```
 
+### Graph Practice Run Example
+```bash
+cd Graph
+javac GraphPracticeQuestions.java
+java GraphPracticeQuestions
+```
+
 ---
 
 ## 📁 Module Structure
@@ -144,6 +152,7 @@ BridgeLabz-2026/
 ├── BinarySearch/               # Binary search algorithms
 ├── BST/                        # Binary Search Tree practice problems
 ├── Heap/                       # Heap practice problems
+├── Graph/                      # Graph traversal and cycle-detection problems
 ├── LinkedList/                 # Linked list implementations
 ├── HashMap/                    # Hash map operations
 ├── Stacko/                     # Stack-based problems
