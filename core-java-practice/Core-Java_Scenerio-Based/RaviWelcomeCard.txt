@@ -1,0 +1,13 @@
+********************************
+*      Welcome, Ravi!        *
+********************************
+
+Hello Ravi,
+
+Welcome to the Java practice workspace!
+Here’s to learning, coding, and building great projects.
+
+Keep going strong and enjoy the journey.
+
+Best wishes,
+Your Coding Team
