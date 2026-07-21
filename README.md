@@ -67,6 +67,8 @@ graph TD
 
 ### **Data Structures** 🏗️
 - **BinarySearch** - Binary search implementations with peak elements, matrix search, rotation point finder
+- **BST** - Binary Search Tree practice covering search, insert, delete, validation, kth smallest, and LCA
+- **Heap** - Heap practice covering heapify, heap sort, top-k, kth largest, and merge-k-sorted-lists
 - **LinkedList** - Linked list operations and node management
 - **HashMap** - Hash map practice problems
 - **Stacko** - Stack operations: balanced brackets, call stack, stock span, next greater element
@@ -140,6 +142,8 @@ java BinarySearchScenario
 BridgeLabz-2026/
 │
 ├── BinarySearch/               # Binary search algorithms
+├── BST/                        # Binary Search Tree practice problems
+├── Heap/                       # Heap practice problems
 ├── LinkedList/                 # Linked list implementations
 ├── HashMap/                    # Hash map operations
 ├── Stacko/                     # Stack-based problems
